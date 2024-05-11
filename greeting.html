@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Celebration Effect on Page Load</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #1cdee5;
+    color: #fff;
+    font-family: Arial, sans-serif;
+  }
+  .celebration {
+    position: absolute;
+    font-size: 30px;
+    animation: spread 5s ease-in-out forwards;
+  }
+  .greetings {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 30px;
+    text-align: center;
+    z-index: 1;
+    color: black;
+  }
+
+  @keyframes spread {
+    0% {
+      transform: translate(0, 0) rotate(0deg);
+      opacity: 1;
+    }
+    50% {
+      transform: translate(calc(-20% + 50vw * random()), calc(-20% + 50vh * random())) rotate(360deg);
+      opacity: 0.7;
+    }
+    100% {
+      transform: translate(calc(-20% + 50vw * random()), calc(-20% + 50vh * random())) rotate(720deg);
+      opacity: 0;
+    }
+    
+  }
+</style>
+</head>
+<body>
+  <div class="greetings">
+    <h1>Congratulations dear!</h1>
+    <p>Wishing you a day filled with joy, laughter, and unforgettable moments.</p>
+    <p>May all your dreams and wishes come true. Have a fantastic year ahead!</p>
+  </div>
+<script>
+  function createCelebration() {
+    const celebration = document.createElement('div');
+    celebration.className = 'celebration';
+    celebration.innerHTML = getRandomEmoji();
+    const x = Math.random() * window.innerWidth;
+    const y = Math.random() * window.innerHeight;
+    celebration.style.left = x + 'px';
+    celebration.style.top = y + 'px';
+    document.body.appendChild(celebration);
+    setTimeout(() => {
+      celebration.remove();
+    }, 5000); // Adjusted time
+  }
+
+  function getRandomEmoji() {
+    const emojis = ['❤️','⭐', '✨','❤️','🎊', '🎉','🔥','❤️','😂', '🥰','😀'];
+    const randomIndex = Math.floor(Math.random() * emojis.length);
+    return emojis[randomIndex];
+  }
+
+  function startCelebration() {
+    for (let i = 0; i < 50; i++) {
+      createCelebration();
+    }
+    setTimeout(startCelebration, 100); 
+  }
+
+  startCelebration();
+</script>
+</body>
+</html>
